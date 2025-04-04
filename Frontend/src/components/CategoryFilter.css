@@ -41,7 +41,7 @@
 .category-checkbox {
   width: 18px;
   height: 18px;
-  accent-color: #3f51b5; /* Modern checkbox color for supported browsers */
+  accent-color: #3f51b5;
 }
 
 label {
