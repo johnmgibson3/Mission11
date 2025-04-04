@@ -8,6 +8,7 @@ namespace Book.Data
         {
         }
 
+        
         public DbSet<global::Book.Data.Book> Books { get; set; }
     }
 }
