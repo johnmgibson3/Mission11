@@ -40,7 +40,7 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
 
   return (
     <>
-      <h1>Favorite Books</h1>
+      <h1>Book List</h1>
       <br />
       {books.map((b) => (
         <div
