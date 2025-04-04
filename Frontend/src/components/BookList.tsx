@@ -70,7 +70,7 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
                 <strong>Number of Pages:</strong> {b.pageCount}
               </li>
               <li>
-                <strong>Price:</strong> {b.price}
+                <strong>Price:</strong> {"$"+ b.price}
               </li>
             </ul>
 

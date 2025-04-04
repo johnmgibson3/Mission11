@@ -1,11 +1,7 @@
-using System.Runtime.CompilerServices;
 using Book.Data;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
-
-namespace BookFun.API.Controllers
+namespace Book.Controllers
 {
     [Route("[controller]")]
     [ApiController]
