@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Book.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class BookController : ControllerBase
     {
@@ -85,5 +85,47 @@ namespace Book.Controllers
 
             return Ok(bookTypes);
         }
+
+        // POST: Create a new book
+[HttpPost("Add")]
+public IActionResult AddBook([FromBody] Book.Data.Book newBook)
+{
+    _bookContext.Books.Add(newBook);
+    _bookContext.SaveChanges();
+    return Ok(newBook);
+}
+
+// PUT: Update an existing book
+[HttpPut("Update/{id}")]
+public IActionResult UpdateBook(int id, [FromBody] Book.Data.Book updatedBook)
+{
+    var book = _bookContext.Books.Find(id);
+    if (book == null) return NotFound();
+
+    // Update fields
+    book.Title = updatedBook.Title;
+    book.Author = updatedBook.Author;
+    book.Publisher = updatedBook.Publisher;
+    book.ISBN = updatedBook.ISBN;
+    book.PageCount = updatedBook.PageCount;
+    book.Price = updatedBook.Price;
+    book.Classification = updatedBook.Classification;
+    book.Category = updatedBook.Category;
+
+    _bookContext.SaveChanges();
+    return Ok(book);
+}
+
+// DELETE: Delete a book
+[HttpDelete("Delete/{id}")]
+public IActionResult DeleteBook(int id)
+{
+    var book = _bookContext.Books.Find(id);
+    if (book == null) return NotFound();
+
+    _bookContext.Books.Remove(book);
+    _bookContext.SaveChanges();
+    return Ok();
+}
     }
 }

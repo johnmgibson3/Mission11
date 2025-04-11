@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Book } from '../types/Book';
-import { useNavigate } from 'react-router-dom';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import EditableBookCard from './EditableBookCard';
+import AddBookCard from './AddBookCard';
 
 function BookList({ selectedCategories }: { selectedCategories: string[] }) {
   const [books, setBooks] = useState<Book[]>([]);
@@ -10,7 +13,7 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
   const [sortOrder, setSortOrder] = useState<string>('asc');
   const [totalItems, setTotalItems] = useState<number>(0);
   const [totalPages, settotalPages] = useState<number>(0);
-  const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -18,13 +21,13 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
         .map((cat) => `category=${encodeURIComponent(cat)}`)
         .join('&');
 
-      const url = `https://localhost:5000/Book/AllBooks?pageSize=${pageSize}&pageNum=${pageNum}&sortOrder=${sortOrder}${selectedCategories.length ? `&${categoryParams}` : ''}`;
+      const url = `https://localhost:5000/api/Book/AllBooks?pageSize=${pageSize}&pageNum=${pageNum}&sortOrder=${sortOrder}${selectedCategories.length ? `&${categoryParams}` : ''}`;
 
       console.log('SelectedCategories:', selectedCategories);
       console.log('Final URL:', url);
 
       const response = await fetch(
-        `https://localhost:5000/Book/AllBooks?pageSize=${pageSize}&pageNum=${pageNum}&sortOrder=${sortOrder}${selectedCategories.length ? `&${categoryParams}` : ''}`,
+        `https://localhost:5000/api/Book/AllBooks?pageSize=${pageSize}&pageNum=${pageNum}&sortOrder=${sortOrder}${selectedCategories.length ? `&${categoryParams}` : ''}`,
         {
           credentials: 'include',
         }
@@ -42,49 +45,16 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
     <>
       <h1>Book List</h1>
       <br />
-      {books.map((b) => (
-        <div
-          id="bookCard"
-          className="card shadow-sm rounded-4 border-start"
-          key={b.bookId}
-        >
-          <h3 className="card-title">{b.title}</h3>
-          <div className="card-body">
-            <ul className="list-unstyled">
-              <li>
-                <strong>Author:</strong> {b.author}
-              </li>
-              <li>
-                <strong>Book Publisher:</strong> {b.publisher}
-              </li>
-              <li>
-                <strong>ISBN:</strong> {b.publisher}
-              </li>
-              <li>
-                <strong>Classification:</strong> {b.classification}
-              </li>
-              <li>
-                <strong>Category:</strong> {b.category}
-              </li>
-              <li>
-                <strong>Number of Pages:</strong> {b.pageCount}
-              </li>
-              <li>
-                <strong>Price:</strong> {"$"+ b.price}
-              </li>
-            </ul>
+      <AddBookCard refresh={() => window.location.reload()} />
 
-            <button
-              className="btn btn-success"
-              onClick={() =>
-                navigate(`/purchase/${b.title}/${b.price}/${b.bookId}`)
-              }
-            >
-              Purchase
-            </button>
-          </div>
-        </div>
-      ))}
+      {books.map((b) => (
+  <EditableBookCard
+    key={b.bookId}
+    book={b}
+    refresh={() => window.location.reload()}
+  />
+))}
+
 
       <button disabled={pageNum === 1} onClick={() => setPageNum(pageNum - 1)}>
         Previous
