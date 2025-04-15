@@ -59,3 +59,7 @@
   font-size: 0.9rem;
   margin-top: 1rem;
 }
+.bar input{
+  background-color: white;
+  color: black
+}
