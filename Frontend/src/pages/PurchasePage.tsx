@@ -27,7 +27,11 @@ function PurchasePage() {
       <WelcomeBand />
       <h2>Purchase {title}</h2>
 
-      <div>
+      <h3>Quantity to Add:</h3>
+       <br />
+       <br />
+       <div className='bar'>
+
         <input
           type="number"
           placeholder="Enter quantity to purchase"
@@ -36,7 +40,7 @@ function PurchasePage() {
         />
         <button onClick={handleAddToCart}>Add to Cart</button>
       </div>
-
+<br />
       <button onClick={() => navigate(-1)}>Go Back</button>
     </>
   );
