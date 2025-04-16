@@ -1,6 +1,6 @@
 function WelcomeBand() {
   return (
-    <div className="row bg-primary text-white">
+    <div className="row bg-primary text-black  ">
       <h1>Book Store</h1>
     </div>
   );
