@@ -1,6 +1,6 @@
 import { Book } from '../types/Book';
 
-const BASE_URL = 'https://localhost:5000/api/Book';
+const BASE_URL = 'https://mission13john-dtb2fxbmbcgub6dg.centralus-01.azurewebsites.net/api/Book';
 
 export const addBook = async (book: Book) => {
   const res = await fetch(`${BASE_URL}/Add`, {
