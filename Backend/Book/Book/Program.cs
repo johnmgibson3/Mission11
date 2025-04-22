@@ -11,8 +11,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var dbPath = Path.Combine(AppContext.BaseDirectory, "Bookstore.sqlite");
+
 builder.Services.AddDbContext<BookDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("BookConnection")));
+    options.UseSqlite($"Data Source={dbPath}"));
 
 
 builder.Services.AddCors(options =>
@@ -20,7 +22,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend",
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000, https://lively-field-0739be51e.6.azurestaticapps.net/")
+            policy.WithOrigins("http://localhost:3000", "https://lively-field-0739be51e.6.azurestaticapps.net/")
                 .AllowCredentials()
                 .AllowAnyHeader()
                 .AllowAnyMethod();
